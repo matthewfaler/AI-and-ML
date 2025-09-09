@@ -1,2 +1,0 @@
-import mnist as mns
-
