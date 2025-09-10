@@ -1,11 +1,8 @@
-from typing import Tuple
+from .agent import Agent
 import board
 
-class Agent:
-    def __init__(self, x_or_o: int):
-        self.x_or_o = x_or_o
-
-    def choose(self, board: board.Board) -> Tuple[int, int]:
+class SimpleAgent(Agent):
+    def choose(self, board: board.Board) -> tuple[int, int]:
         for i in range(board.width):
             for j in range(board.height):
                 if board.spaceValue(i, j) == ' ':
