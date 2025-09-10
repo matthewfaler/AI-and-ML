@@ -1,7 +1,7 @@
 from typing import Tuple
 import board
 
-class Agent:
+class SimpleAgent:
     def __init__(self, x_or_o: int):
         self.x_or_o = x_or_o
 
