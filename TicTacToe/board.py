@@ -5,14 +5,12 @@ x_or_o = ('X', 'O')
 class Board:
     def __init__(self):
         self.board = numpy.full([3, 3], ' ', dtype='U1')
-        self.player = 0
 
-    def put(self, x, y):
+    def put(self, x, y, player: int):
         if self.board[y, x] != ' ':
             print("\033[31mPlease select empty space.\033[0m")
             return -1
-        self.board[y, x] = x_or_o[self.player]
-        self.togglePlayer()
+        self.board[y, x] = x_or_o[player]
         if self.checkVictory(): return 2
         if self.checkFull(): return 1
         return 0
