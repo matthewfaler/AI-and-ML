@@ -18,14 +18,14 @@ class Game:
             return
         col = int(col)
         row = int(row)
-        self.turn((row - 1, col - 1), self.userPlayer)
+        self.turn((col - 1, row - 1), self.userPlayer)
 
     def turn(self, move: tuple[int, int], player: int):
-        row, col = move
+        col, row = move
         status = self.board.put(col, row, player)
         if status == 2:
             self.board.out()
-            print(f"Player {board.x_or_o[player]} wins!")
+            print(f"Player {self.board.x_or_o[player]} wins!")
             self.finished = True
         elif status == 1:
             self.board.out()
@@ -33,9 +33,13 @@ class Game:
             self.finished = True
 
 if __name__=="__main__":
-    g = Game(0, 1)
-    g.board.out()
-    g.promptUser()
-    g.board.out()
-    g.turn(g.agent.choose(g.board), g.agent.x_or_o)
-    g.board.out()
+    g = Game(0, 1) # Game always has user go first. Fix to be more general
+    while(not g.finished):
+        g.board.out()
+        g.promptUser()
+        g.board.out()
+        try:
+            g.turn(g.agent.choose(g.board), g.agent.x_or_o)
+        except ValueError as e:
+            print(e)
+            g.finished = True
