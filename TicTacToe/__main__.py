@@ -1,21 +1,18 @@
 from game import Game
 
 if __name__=="__main__":
-    g = Game(0, 1) # Game always has user go first. Fix to be more general
-    g.board.out()
-    while(not g.finished):
-        try:
-            g.promptUser()
-        except ValueError as e:
-            print(f"\033[31m{e}\033[0m")
-            g.board.out()
-            continue
-        if(g.finished): break
-        g.board.out()
-        print("Agent move:")
-        try:
-            g.turn(g.agent.choose(g.board), g.agent.x_or_o)
-        except ValueError as e:
-            print(f"\033[31m{e}\033[0m")
-            g.finished = True
-        g.board.out()
+    while True:
+        choice = input("Please enter X or O for which symbol you want to play as: ").strip().upper()
+        if choice in ('X', 'O'):
+            break
+        print("\033[31mInvalid choice. Please enter X or O.\033[0m")
+    
+    # Map choice to player order
+    if choice == "X":
+        user_player = 0  # User goes first as X
+        agent_player = 1
+    else:
+        user_player = 1  # User goes second as O
+        agent_player = 0
+    g = Game(user_player, agent_player)
+    g.play()
