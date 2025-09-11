@@ -31,3 +31,28 @@ class Game:
             print("Board full. Game ends in a tie.")
             self.finished = True
 
+    def play(self):
+        user_turn = self.userPlayer == 0
+
+        if self.userPlayer == 0: self.board.out()
+        while not self.finished:
+            if user_turn:
+                print("Player move:")
+                try:
+                    self.promptUser()
+                except ValueError as e:
+                    print(f"\033[31m{e}\033[0m")
+                    self.board.out()
+                    continue
+            else:
+                print("Agent move:")
+                try:
+                    self.turn(self.agent.choose(self.board), self.agent.x_or_o)
+                except ValueError as e:
+                    print(f"\033[31m{e}\033[0m")
+                    self.finished = True
+
+            if self.finished:
+                break
+            self.board.out()
+            user_turn = not user_turn
