@@ -9,8 +9,8 @@ class Game:
         self.finished = False
 
     def promptUser(self):
-        col = input(f"Please enter the column of your move (1, 2, 3): ")
-        row = input(f"Please enter the row of your move (1, 2, 3)(0 to escape): ")
+        col = input(f"Please enter the column of your move (1, 2, 3): ").strip()
+        row = input(f"Please enter the row of your move (1, 2, 3)(0 to escape): ").strip()
         if col not in ('1', '2', '3') or row not in ('0', '1', '2', '3'):
             raise ValueError("Please enter a valid space.")
         col = int(col)
