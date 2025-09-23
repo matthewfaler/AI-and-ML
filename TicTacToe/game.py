@@ -5,7 +5,7 @@ class Game:
     def __init__(self, userPlayer: int, agentPlayer: int):
         self.board = board.Board()
         self.agent = agents.SimpleAgent(agentPlayer)
-        self.userPlayer = userPlayer
+        self.userPlayer = 'X' if userPlayer == 0 else 'O'
         self.finished = False
 
     # Prompts user for input on their turn, 
@@ -21,13 +21,18 @@ class Game:
             return
         self.turn((col - 1, row - 1), self.userPlayer)
 
-    def turn(self, move: tuple[int, int], player: int):
+    # Implement turn-based tictactoe game logic.
+    def turn(self, move: tuple[int, int], player: str):
         col, row = move
+        
+        # Reverse col and row to accomodate numpy indexing.
         status = self.board.put(col, row, player)
+        # Check if the game has been won and output winner.
         if status in ('X', 'O'):
             self.board.out()
             print(f"\033[32mPlayer {status} wins!\033[0m")
             self.finished = True
+        # Check if the board is full and a tie
         elif status == ' ':
             self.board.out()
             print("Board full. Game ends in a tie.")
@@ -49,7 +54,7 @@ class Game:
             else:
                 print("Agent move:")
                 try:
-                    self.turn(self.agent.choose(self.board), self.agent.x_or_o)
+                    self.turn(self.agent.choose(self.board), self.agent.player)
                 except ValueError as e:
                     print(f"\033[31m{e}\033[0m")
                     self.finished = True

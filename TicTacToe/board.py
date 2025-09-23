@@ -1,17 +1,16 @@
 import numpy
 
 class Board:
-    x_or_o = ('X', 'O')
     width = 3
     height = 3
 
     def __init__(self):
         self.board = numpy.full([self.height, self.width], ' ', dtype='U1')
 
-    def put(self, x: int, y: int, player: int):
+    def put(self, x: int, y: int, player: str):
         if self.board[y, x] != ' ':
             raise ValueError("Please select empty space.")
-        self.board[y, x] = self.x_or_o[player]
+        self.board[y, x] = player
         if self.checkVictory(): return self.checkVictory()
         if self.checkFull(): return ' '
         return None
