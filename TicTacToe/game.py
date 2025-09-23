@@ -10,7 +10,7 @@ class Game:
 
     # Prompts user for input on their turn, 
     # raises error if space is out of bounds
-    def promptUser(self):
+    def promptUser(self) -> None:
         col = input(f"Please enter the column of your move (1, 2, 3): ").strip()
         row = input(f"Please enter the row of your move (1, 2, 3)(0 to escape): ").strip()
         if col not in ('1', '2', '3') or row not in ('0', '1', '2', '3'):
@@ -18,11 +18,11 @@ class Game:
         col = int(col)
         row = int(row)
         if row == 0:
-            return
+            return None
         self.turn((col - 1, row - 1), self.userPlayer)
 
     # Implement turn-based tictactoe game logic.
-    def turn(self, move: tuple[int, int], player: str):
+    def turn(self, move: tuple[int, int], player: str) -> None:
         col, row = move
         
         # Reverse col and row to accomodate numpy indexing.
@@ -39,7 +39,7 @@ class Game:
             print("Board full. Game ends in a tie.")
             self.finished = True
 
-    def play(self):
+    def play(self) -> None:
         user_turn = self.userPlayer == 'X'
 
         if self.userPlayer == 'X': self.board.out()
