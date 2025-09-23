@@ -11,8 +11,8 @@ class Game:
     # Prompts user for input on their turn, 
     # raises error if space is out of bounds
     def promptUser(self):
-        col = input(f"Please enter the column of your move (1, 2, 3): ")
-        row = input(f"Please enter the row of your move (1, 2, 3)(0 to escape): ")
+        col = input(f"Please enter the column of your move (1, 2, 3): ").strip()
+        row = input(f"Please enter the row of your move (1, 2, 3)(0 to escape): ").strip()
         if col not in ('1', '2', '3') or row not in ('0', '1', '2', '3'):
             raise ValueError("Please enter a valid space.")
         col = int(col)
@@ -33,22 +33,28 @@ class Game:
             print("Board full. Game ends in a tie.")
             self.finished = True
 
-if __name__=="__main__":
-    g = Game(0, 1) # Game always has user go first. Fix to be more general
-    g.board.out()
-    while(not g.finished):
-        try:
-            g.promptUser()
-        except ValueError as e:
-            print(f"\033[31m{e}\033[0m")
-            g.board.out()
-            continue
-        if(g.finished): break
-        g.board.out()
-        print("Agent move:")
-        try:
-            g.turn(g.agent.choose(g.board), g.agent.x_or_o)
-        except ValueError as e:
-            print(f"\033[31m{e}\033[0m")
-            g.finished = True
-        g.board.out()
+    def play(self):
+        user_turn = self.userPlayer == 0
+
+        if self.userPlayer == 0: self.board.out()
+        while not self.finished:
+            if user_turn:
+                print("Player move:")
+                try:
+                    self.promptUser()
+                except ValueError as e:
+                    print(f"\033[31m{e}\033[0m")
+                    self.board.out()
+                    continue
+            else:
+                print("Agent move:")
+                try:
+                    self.turn(self.agent.choose(self.board), self.agent.x_or_o)
+                except ValueError as e:
+                    print(f"\033[31m{e}\033[0m")
+                    self.finished = True
+
+            if self.finished:
+                break
+            self.board.out()
+            user_turn = not user_turn
