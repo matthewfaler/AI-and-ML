@@ -27,6 +27,7 @@ class Game:
         
         # Reverse col and row to accomodate numpy indexing.
         status = self.board.put(col, row, player)
+
         # Check if the game has been won and output winner.
         if status in ('X', 'O'):
             self.board.out()
@@ -39,9 +40,9 @@ class Game:
             self.finished = True
 
     def play(self):
-        user_turn = self.userPlayer == 0
+        user_turn = self.userPlayer == 'X'
 
-        if self.userPlayer == 0: self.board.out()
+        if self.userPlayer == 'X': self.board.out()
         while not self.finished:
             if user_turn:
                 print("Player move:")
