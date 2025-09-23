@@ -8,6 +8,8 @@ class Game:
         self.userPlayer = userPlayer
         self.finished = False
 
+    # Prompts user for input on their turn, 
+    # raises error if space is out of bounds
     def promptUser(self):
         col = input(f"Please enter the column of your move (1, 2, 3): ")
         row = input(f"Please enter the row of your move (1, 2, 3)(0 to escape): ")
