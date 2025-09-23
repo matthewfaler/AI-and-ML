@@ -10,7 +10,11 @@ class Board:
     def put(self, x: int, y: int, player: str):
         if self.board[y, x] != ' ':
             raise ValueError("Please select empty space.")
+<<<<<<< HEAD
         self.board[y, x] = player
+=======
+        self.board[y, x] = self.x_or_o[player]
+>>>>>>> c9bcdd82f867674a5b55620bd6b2905fd24dc170
         if self.checkVictory(): return self.checkVictory()
         if self.checkFull(): return ' '
         return None
