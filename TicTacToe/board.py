@@ -12,22 +12,22 @@ class Board:
         if self.board[y, x] != ' ':
             raise ValueError("Please select empty space.")
         self.board[y, x] = self.x_or_o[player]
-        if self.checkVictory(): return 2
-        if self.checkFull(): return 1
-        return 0
+        if self.checkVictory(): return self.checkVictory()
+        if self.checkFull(): return ' '
+        return None
 
     def checkVictory(self):
-        if self.board[0][0] == self.board[0][1] and self.board[0][1] == self.board[0][2] and self.board[0][1] != ' ': return True
-        if self.board[1][0] == self.board[1][1] and self.board[1][1] == self.board[1][2] and self.board[1][1] != ' ': return True
-        if self.board[2][0] == self.board[2][1] and self.board[2][1] == self.board[2][2] and self.board[2][1] != ' ': return True
-        if self.board[0][0] == self.board[1][0] and self.board[1][0] == self.board[2][0] and self.board[1][0] != ' ': return True
-        if self.board[0][1] == self.board[1][1] and self.board[1][1] == self.board[2][1] and self.board[1][1] != ' ': return True
-        if self.board[0][2] == self.board[1][2] and self.board[1][2] == self.board[2][2] and self.board[1][2] != ' ': return True
-        if self.board[0][0] == self.board[1][1] and self.board[1][1] == self.board[2][2] and self.board[1][1] != ' ': return True
-        if self.board[0][2] == self.board[1][1] and self.board[1][1] == self.board[2][0] and self.board[1][1] != ' ': return True
-        return False
+        if self.board[0][0] == self.board[0][1] == self.board[0][2] and self.board[0][1] != ' ': return self.board[0][1]
+        if self.board[1][0] == self.board[1][1] == self.board[1][2] and self.board[1][1] != ' ': return self.board[1][1]
+        if self.board[2][0] == self.board[2][1] == self.board[2][2] and self.board[2][1] != ' ': return self.board[2][1]
+        if self.board[0][0] == self.board[1][0] == self.board[2][0] and self.board[1][0] != ' ': return self.board[1][0]
+        if self.board[0][1] == self.board[1][1] == self.board[2][1] and self.board[1][1] != ' ': return self.board[1][1]
+        if self.board[0][2] == self.board[1][2] == self.board[2][2] and self.board[1][2] != ' ': return self.board[1][2]
+        if self.board[0][0] == self.board[1][1] == self.board[2][2] and self.board[1][1] != ' ': return self.board[1][1]
+        if self.board[0][2] == self.board[1][1] == self.board[2][0] and self.board[1][1] != ' ': return self.board[1][1]
+        return None
 
-    def checkFull(self):
+    def checkFull(self) -> bool:
         return not numpy.any(self.board == ' ')
 
     def togglePlayer(self):
@@ -40,9 +40,6 @@ class Board:
         print(f" 2 {self.board[1][0]} | {self.board[1][1]} | {self.board[1][2]}")
         print("  -----------")
         print(f" 3 {self.board[2][0]} | {self.board[2][1]} | {self.board[2][2]}")
-
-    def get(self):
-        return
 
     def spaceValue(self, x: int, y: int):
         return self.board[y][x]
