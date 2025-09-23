@@ -27,18 +27,12 @@ class Game:
         
         # Reverse col and row to accomodate numpy indexing.
         status = self.board.put(col, row, player)
-<<<<<<< HEAD
         # Check if the game has been won and output winner.
-=======
->>>>>>> c9bcdd82f867674a5b55620bd6b2905fd24dc170
         if status in ('X', 'O'):
             self.board.out()
             print(f"\033[32mPlayer {status} wins!\033[0m")
             self.finished = True
-<<<<<<< HEAD
         # Check if the board is full and a tie
-=======
->>>>>>> c9bcdd82f867674a5b55620bd6b2905fd24dc170
         elif status == ' ':
             self.board.out()
             print("Board full. Game ends in a tie.")
