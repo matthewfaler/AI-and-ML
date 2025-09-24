@@ -4,7 +4,7 @@ import board
 class Game:
     def __init__(self, userPlayer: int, agentPlayer: int):
         self.board = board.Board()
-        self.agent = agents.SimpleAgent(agentPlayer)
+        self.agent = agents.MinimaxAgent(agentPlayer)
         self.userPlayer = 'X' if userPlayer == 0 else 'O'
         self.finished = False
 
