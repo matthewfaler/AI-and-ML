@@ -2,9 +2,9 @@ import agents
 import board
 
 class Game:
-    def __init__(self, userPlayer: int, agentPlayer: int):
+    def __init__(self, userPlayer: int, agentPlayer: int, choice: int):
         self.board = board.Board()
-        self.agent = agents.MinimaxAgent(agentPlayer)
+        self.agent = agents.SimpleAgent(agentPlayer) if choice == 1 else agents.MinimaxAgent(agentPlayer)
         self.userPlayer = 'X' if userPlayer == 0 else 'O'
         self.finished = False
 

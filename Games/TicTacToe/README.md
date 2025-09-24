@@ -1,0 +1,2 @@
+#TicTacToe
+This is a TicTacToe game that I created in order to work with minimax AI gaming agents on a small scale. This was my first starting point with artificial intelligence, which is an area that I am increasingly interested in. I used my general TicTacToe game from my Game repository on github. It needed significant refactor in order to accommodate the agent, so this is something that I will be paying attention to in future projects.
