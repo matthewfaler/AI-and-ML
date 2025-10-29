@@ -5,7 +5,7 @@ class Game:
         self.board = board.Board()
         self.finished = False
 
-    def promptPlayer(self):
+    def promptPlayer(self) -> None:
         inp = input("Choose which column to play (A-G): ").upper()
         colmap = {'A':0,'B':1,'C':2,'D':3,'E':4,'F':5,'G':6}
 
@@ -15,10 +15,11 @@ class Game:
         
         if self.board.nextSpots[colmap[inp]] == self.board.above:
             print("\033[31mError: Column is full.\033[0m")
+            return None;
 
         self.turn(colmap[inp])
 
-    def turn(self, move):
+    def turn(self, move) -> None:
         won = self.board.put(move)
         if won:
             self.board.out()
