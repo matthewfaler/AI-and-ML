@@ -4,6 +4,8 @@ class Game:
     def __init__(self):
         self.board = board.Board()
         self.finished = False
+        self.userPlayer = '●'
+        self.agentPlayer = '○' if self.userPlayer == '●' else '●'
 
     def promptPlayer(self) -> None:
         inp = input("Choose which column to play (A-G): ").upper().strip()
@@ -11,22 +13,20 @@ class Game:
 
         # Check if column is a valid option.
         if inp not in colmap:
-            print("Please choose a valid option.")
-            return
+            raise ValueError("\033[31mError: Please choose a valid column.\033[0m")
         
         if self.board.nextSpots[colmap[inp]] == self.board.above:
-            print("\033[31mError: Column is full.\033[0m")
-            return None;
+            raise ValueError("\033[31mError: Column is full.\033[0m")
 
-        self.turn(colmap[inp])
+        self.turn(colmap[inp], self.userPlayer)
 
-    def turn(self, move) -> None:
-        won = self.board.put(move)
-        if won:
+    def turn(self, move: int, player: str) -> None:
+        status = self.board.put(move, player)
+        if status in ('●', '○'):
             self.board.out()
-            print(f"Player {self.board.colors[self.board.player]} wins!")
+            print(f"Player {status} wins!")
             self.finished = True
-        elif self.board.checkFull():
+        elif status == ' ':
             self.board.out()
             print("It's a draw!")
             self.finished = True
