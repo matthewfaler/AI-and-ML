@@ -1,11 +1,12 @@
 import board
+import agents
 
 class Game:
     def __init__(self):
         self.board = board.Board()
         self.finished = False
         self.userPlayer = '●'
-        self.agentPlayer = '○' if self.userPlayer == '●' else '●'
+        self.agentPlayer = agents.simple_agent('○')
 
     def promptPlayer(self) -> None:
         inp = input("Choose which column to play (A-G): ").upper().strip()
@@ -37,5 +38,11 @@ if __name__ == "__main__":
         g.board.out()
         try:
             g.promptPlayer()
+        except ValueError as e:
+            print(e)
+            continue
+        g.board.out()
+        try:
+            g.turn(g.agentPlayer.choose(g.board), g.agentPlayer.player)
         except ValueError as e:
             print(e)

@@ -2,7 +2,7 @@ from abc import ABC, abstractmethod
 import board
 
 class agent(ABC):
-    def __init__(self, player: int):
+    def __init__(self, player: str):
         self.player = player
 
     @abstractmethod
